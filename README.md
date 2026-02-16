@@ -1,93 +1,102 @@
-# Import libraries
+# ==============================
+# Titanic Survival Prediction
+# Algorithms: Logistic Regression & Random Forest
+# ==============================
+
+# 1. Import Libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
+# 2. Load Dataset
+df = pd.read_csv("train.csv")
 
-%matplotlib inline
+print("First 5 Rows:")
+print(df.head())
 
-# Load the data
-train_data = pd.read_csv("train.csv")
-test_data = pd.read_csv("test.csv")
+print("\nDataset Info:")
+print(df.info())
 
-# Preview data
-print(train_data.head())
-print(test_data.head())
+# 3. Data Preprocessing / Feature Engineering
 
-# Info & Missing Values
-print(train_data.info())
-print(train_data.isnull().sum())
+# Fill missing Age with median
+df['Age'].fillna(df['Age'].median(), inplace=True)
 
-# Visualize missing data
-sns.heatmap(train_data.isnull(), cbar=False, cmap="viridis")
+# Fill missing Embarked with mode
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+
+# Drop Cabin (too many missing values)
+df.drop('Cabin', axis=1, inplace=True)
+
+# Convert categorical to numeric
+label = LabelEncoder()
+df['Sex'] = label.fit_transform(df['Sex'])
+df['Embarked'] = label.fit_transform(df['Embarked'])
 
 # Drop unnecessary columns
-train_data.drop(['Ticket','Cabin','Name','PassengerId'], axis=1, inplace=True)
-test_data.drop(['Ticket','Cabin','Name'], axis=1, inplace=True)
+df.drop(['Name', 'Ticket', 'PassengerId'], axis=1, inplace=True)
 
-# Fill missing values
-train_data['Age'].fillna(train_data['Age'].median(), inplace=True)
-train_data['Embarked'].fillna(train_data['Embarked'].mode()[0], inplace=True)
-test_data['Age'].fillna(test_data['Age'].median(), inplace=True)
-test_data['Fare'].fillna(test_data['Fare'].median(), inplace=True)
+print("\nCleaned Data:")
+print(df.head())
 
-# Convert categorical columns
-train_data = pd.get_dummies(train_data, columns=['Sex', 'Embarked'])
-test_data = pd.get_dummies(test_data, columns=['Sex', 'Embarked'])
+# 4. Define Features and Target
+X = df.drop('Survived', axis=1)
+y = df['Survived']
 
-# Separate features and target
-X = train_data.drop("Survived", axis=1)
-y = train_data["Survived"]
+# 5. Train Test Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-# Train test split
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.25, random_state=42)
+# ==============================
+# Logistic Regression Model
+# ==============================
 
-# Feature Scaling
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_val_scaled = scaler.transform(X_val)
+log_model = LogisticRegression(max_iter=1000)
+log_model.fit(X_train, y_train)
 
-# Models
-models = {
-    "Logistic Regression": LogisticRegression(),
-    "Support Vector Classifier": SVC(),
-    "Decision Tree": DecisionTreeClassifier(),
-    "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42)
-}
+y_pred_log = log_model.predict(X_test)
 
-# Train & Evaluate
-for name, model in models.items():
-    model.fit(X_train_scaled, y_train)
-    y_pred = model.predict(X_val_scaled)
-    accuracy = accuracy_score(y_val, y_pred)
-    print(f"{name} Accuracy: {accuracy:.4f}")
-    print(confusion_matrix(y_val, y_pred))
-    print(classification_report(y_val, y_pred))
-    print("--------------------------------------------------")
+print("\nLogistic Regression Results")
+print("Accuracy:", accuracy_score(y_test, y_pred_log))
+print(confusion_matrix(y_test, y_pred_log))
+print(classification_report(y_test, y_pred_log))
 
-# Choose best model (example: RandomForest)
-best_model = RandomForestClassifier(n_estimators=200, random_state=42)
-best_model.fit(X_train_scaled, y_train)
+# ==============================
+# Random Forest Model
+# ==============================
 
-# Prepare test data
-test_scaled = scaler.transform(test_data)
+rf_model = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
 
-# Predict survival on test
-test_predictions = best_model.predict(test_scaled)
+rf_model.fit(X_train, y_train)
 
-# Save submission
-submission = pd.DataFrame({
-    "PassengerId": pd.read_csv("test.csv")["PassengerId"],
-    "Survived": test_predictions
-})
-submission.to_csv("submission.csv", index=False)
-print("Submission file saved!")
+y_pred_rf = rf_model.predict(X_test)
+
+print("\nRandom Forest Results")
+print("Accuracy:", accuracy_score(y_test, y_pred_rf))
+print(confusion_matrix(y_test, y_pred_rf))
+print(classification_report(y_test, y_pred_rf))
+
+# ==============================
+# Feature Importance (Random Forest)
+# ==============================
+
+feature_importance = pd.Series(
+    rf_model.feature_importances_,
+    index=X.columns
+).sort_values(ascending=False)
+
+plt.figure(figsize=(8,5))
+sns.barplot(x=feature_importance, y=feature_importance.index)
+plt.title("Feature Importance")
+plt.show()
