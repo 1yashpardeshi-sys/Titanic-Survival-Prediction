@@ -100,3 +100,4 @@ plt.figure(figsize=(8,5))
 sns.barplot(x=feature_importance, y=feature_importance.index)
 plt.title("Feature Importance")
 plt.show()
+
