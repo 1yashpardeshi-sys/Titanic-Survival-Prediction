@@ -1,4 +1,9 @@
-Titanic Survival Prediction 🚢 
+import matplotlib.pyplot as plt
+
+plt.text(0.5, 0.5, 'Titanic Survival Prediction 🚢', fontsize=20, fontweight='bold', ha='center')
+plt.axis('off')
+plt.show()
+
 
 📌 Project Overview
 The Titanic Survival Prediction project aims to predict whether a passenger survived the Titanic disaster using Machine Learning algorithms. The dataset used is the famous Titanic dataset from Kaggle.
