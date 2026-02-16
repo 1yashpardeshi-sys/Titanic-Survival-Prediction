@@ -47,7 +47,14 @@ It contains information about:
 - Key factors influencing survival: **Gender**, **Passenger Class**, **Age**, **Fare**.  
 - Confusion matrix and classification report indicate the effectiveness of the model.  
 
-## 📌 Conclusion
-The Titanic Survival Prediction project demonstrates how data science techniques and machine learning can be used to predict outcomes based on historical data. This project provides practical experience in data preprocessing, modeling, and evaluation.
+## 📌 Output Screenshots
+<img width="1175" height="51" alt="Screenshot 2026-02-16 164131" src="https://github.com/user-attachments/assets/4f8728c8-45e0-42e7-b0e2-b1b23bdb28c1" />
+<img width="1131" height="325" alt="Screenshot 2026-02-16 164151" src="https://github.com/user-attachments/assets/7e5b14f7-7bb4-4850-83b0-7d39829fa18c" />
+<img width="1132" height="319" alt="Screenshot 2026-02-16 164203" src="https://github.com/user-attachments/assets/ecc83973-aa14-415d-9242-32606462b287" />
+<img width="593" height="238" alt="Screenshot 2026-02-16 164214" src="https://github.com/user-attachments/assets/e4f27d76-e881-4764-82d3-1b848a1c4be7" />
+<img width="592" height="290" alt="Screenshot 2026-02-16 164231" src="https://github.com/user-attachments/assets/48a176c4-3b70-4848-93fc-f1fd950341ba" />
+<img width="1011" height="606" alt="Screenshot 2026-02-16 164259" src="https://github.com/user-attachments/assets/755697f3-bc7a-4b29-b097-51615244c01b" />
 
-<img width="1175" height="51" alt="Screenshot 2026-02-16 164131" src="https://github.com/user-attachments/assets/3de94b59-d2a3-4295-a4bd-b7e27e88802d" />
+
+
+
