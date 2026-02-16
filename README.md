@@ -57,7 +57,9 @@ It contains information about:
 
 ## 🚀 How to Run
 1) Clone the repository
+
 2)Install required libraries:
+
 3)Run the notebook or Python file
 
 ## 🔗 Kaggle Notebook
