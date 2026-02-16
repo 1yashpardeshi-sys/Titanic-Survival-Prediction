@@ -55,6 +55,18 @@ It contains information about:
 <img width="592" height="290" alt="Screenshot 2026-02-16 164231" src="https://github.com/user-attachments/assets/48a176c4-3b70-4848-93fc-f1fd950341ba" />
 <img width="1011" height="606" alt="Screenshot 2026-02-16 164259" src="https://github.com/user-attachments/assets/755697f3-bc7a-4b29-b097-51615244c01b" />
 
+## 🚀 How to Run
+1) Clone the repository
+2)Install required libraries:
+3)Run the notebook or Python file
 
+## 🔗 Kaggle Notebook
+https://www.kaggle.com/code/yashpardeshi28/titanic-survival-prediction-project
 
+## 👨‍💻 Author
+Yash Pardeshi
+AI & Data Science Student
+Ajeenkya DY Patil School of Engineering
 
+## 📜 License
+This project is licensed under the MIT License
