@@ -49,3 +49,4 @@ It contains information about:
 
 ## 📌 Conclusion
 The Titanic Survival Prediction project demonstrates how data science techniques and machine learning can be used to predict outcomes based on historical data. This project provides practical experience in data preprocessing, modeling, and evaluation.
+<img width="1175" height="51" alt="Screenshot 2026-02-16 164131" src="https://github.com/user-attachments/assets/3de94b59-d2a3-4295-a4bd-b7e27e88802d" />
